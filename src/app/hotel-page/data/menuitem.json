@@ -1,0 +1,21 @@
+{
+    "tabs": ["Hotels", "Trips", "Taxi", "Flight + Hotel", "Group Tours"],
+    "locations": ["New York", "London", "Paris", "Tokyo", "Sydney","London"],
+    "tripDestinations": [
+      "Bali, Indonesia",
+      "Paris, France",
+      "Tokyo, Japan",
+      "New York, USA",
+      "Dubai, UAE",
+      "Cape Town, South Africa"
+    ],
+    "guests": [
+      "2 Adults | 1 Room",
+      "1 Adult | 1 Room",
+      "3 Adults | 2 Rooms"
+    ],
+    "travelers": ["1 adult", "2 adults", "3 adults", "Family"],
+    "tripTypes": ["Adventure", "Honeymoon", "Family", "Solo", "Luxury"],
+    "passengers": ["1", "2", "3", "4", "5+"]
+  }
+  

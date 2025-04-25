@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Box,
   Tabs,
@@ -14,14 +14,81 @@ import {
   Container
 } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import PeopleIcon from '@mui/icons-material/People'
 import SearchIcon from '@mui/icons-material/Search'
 
 export const SearchBar = () => {
   const [tab, setTab] = useState(0)
-  const handleTabChange = (event, newValue) => {
-    setTab(newValue)
+  const [data, setData] = useState(null)
+  const [formValues, setFormValues] = useState('')
+
+  useEffect(() => {
+    import('../data/menuitem.json')
+      .then(module => {
+        const menuData = module.default
+        setData(menuData)
+        setFormValues(prev => ({
+          ...prev,
+          tab0: {
+            location: menuData.locations[0] || '',
+            checkIn: '',
+            checkOut: '',
+            guests: menuData.guests[0] || ''
+          },
+          tab1: {
+            destination: menuData.tripDestinations[0] || '',
+            departure: '',
+            return: '',
+            travelers: menuData.travelers[0] || '',
+            tripType: menuData.tripTypes[0] || ''
+          },
+          tab2: {
+            pickup: menuData.tripDestinations[0] || '',
+            drop: menuData.tripDestinations[1] || '',
+            date: '',
+            passengers: menuData.passengers[1] || ''
+          },
+          tab3: {
+            flightFrom: menuData.tripDestinations[0] || '',
+            flightTo: menuData.tripDestinations[2] || '',
+            departureDate: '',
+            hotelDestination: menuData.tripDestinations[1] || '',
+            hotelCheckIn: '',
+            hotelCheckOut: '',
+            travelers: menuData.travelers[0] || ''
+          },
+          tab4: {
+            destination: menuData.tripDestinations[0] || '',
+            tripType: menuData.tripTypes[0] || '',
+            groupSize: menuData.travelers[0] || ''
+          }
+        }))
+      })
+      .catch(err => console.error('Failed to load menu items', err))
+  }, [])
+
+  if (!data) return null
+
+  const handleTabChange = (event, newValue) => setTab(newValue)
+
+  const handleChange = (tabKey, field) => event => {
+    const value = event.target.value
+    setFormValues(prev => ({
+      ...prev,
+      [tabKey]: {
+        ...prev[tabKey],
+        [field]: value
+      }
+    }))
+  }
+
+  const handleSubmit = () => {
+    const tabKey = `tab${tab}`
+    const tabLabel = data.tabs[tab] || tabKey
+    console.log(
+      `Data from "${tabLabel}":`,
+      JSON.stringify(formValues[tabKey], null, 2)
+    )
   }
 
   return (
@@ -30,7 +97,7 @@ export const SearchBar = () => {
         position: 'relative',
         mt: -9,
         zIndex: 3,
-        padding: '10px',
+        padding: 4,
         width: { xs: '95%', sm: 'auto' },
         overflow: 'hidden'
       }}
@@ -61,33 +128,32 @@ export const SearchBar = () => {
           textColor='secondary'
           TabIndicatorProps={{ style: { display: 'none' } }}
         >
-          {['Hotels', 'Trips', 'Taxi', 'Flight + Hotel', 'Group Tours'].map(
-            (label, index) => (
-              <Tab
-                key={index}
-                label={label}
-                sx={{
-                  color: 'white',
-                  textTransform: 'none',
-                  fontWeight: 500,
-                  mx: 2,
-                  '&:hover': {
-                    backgroundColor: 'white',
-                    color: '#5b2e91',
-                    borderRadius: 15
-                  },
-                  '&.Mui-selected': {
-                    backgroundColor: 'white',
-                    color: '#5b2e91',
-                    borderRadius: 15,
-                    fontWeight: 'bold'
-                  }
-                }}
-              />
-            )
-          )}
+          {data.tabs.map((label, index) => (
+            <Tab
+              key={index}
+              label={label}
+              sx={{
+                color: 'white',
+                textTransform: 'none',
+                fontWeight: 500,
+                mx: 2,
+                '&:hover': {
+                  backgroundColor: 'white',
+                  color: '#5b2e91',
+                  borderRadius: 15
+                },
+                '&.Mui-selected': {
+                  backgroundColor: 'white',
+                  color: '#5b2e91',
+                  borderRadius: 15,
+                  fontWeight: 'bold'
+                }
+              }}
+            />
+          ))}
         </Tabs>
       </Box>
+
       <Paper
         elevation={4}
         sx={{
@@ -95,522 +161,468 @@ export const SearchBar = () => {
           top: -100,
           zIndex: 0,
           mt: 9,
-          p: { xs: 2, sm: 4 },
+          p: { xs: 2, sm: 2 },
           borderRadius: 4,
           backgroundColor: '#f8f9fa',
-          width: '80%',
+          width: '85%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           mx: 'auto'
         }}
       >
-        {tab === 0 && (
-          // Hotel Search Form
-          <Grid
-            container
-            spacing={2}
-            sx={{
-              padding: 2
-            }}
-          >
-            <Grid item xs={12} sm={12} md={6}>
-              <TextField
-                fullWidth
-                label='Location'
-                select
-                defaultValue='New York'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='New York'>New York</MenuItem>
-                <MenuItem value='London'>London</MenuItem>
-                <MenuItem value='Paris'>Paris</MenuItem>
-                <MenuItem value='Tokyo'>Tokyo</MenuItem>
-                <MenuItem value='Sydney'>Sydney</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Check-In'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Check-Out'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Guests'
-                defaultValue='2 Adults | 1 Room'
-                select
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <PeopleIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='2 Adults | 1 Room'>2 Adults | 1 Room</MenuItem>
-                <MenuItem value='1 Adult | 1 Room'>1 Adult | 1 Room</MenuItem>
-                <MenuItem value='3 Adults | 2 Rooms'>
-                  3 Adults | 2 Rooms
-                </MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6} md={2}>
-              <Button
-                variant='contained'
-                fullWidth
-                size='large'
-                sx={{
-                  height: '100%',
-                  backgroundColor: '#5b2e91',
-                  borderRadius: 2,
-                  '&:hover': { backgroundColor: '#4a2574' }
-                }}
-                startIcon={<SearchIcon />}
-              >
-                Search
-              </Button>
-            </Grid>
+        <Grid
+          container
+          columns={{ xs: 4, sm: 8, md: 12 }}
+          spacing={2}
+          sx={{ mt: 3 }}
+        >
+          {tab === 0 && (
+            <>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Location'
+                  select
+                  defaultValue={data.locations[0]}
+                  value={formValues.tab0.location}
+                  onChange={handleChange('tab0', 'location')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.locations.map((loc, i) => (
+                    <MenuItem key={i} value={loc}>
+                      {loc}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Check-In'
+                  type='date'
+                  value={formValues.tab0.checkIn}
+                  onChange={handleChange('tab0', 'checkIn')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Check-Out'
+                  type='date'
+                  value={formValues.tab0.checkOut}
+                  onChange={handleChange('tab0', 'checkOut')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Guests'
+                  select
+                  defaultValue={data.guests[0]}
+                  value={formValues.tab0.guests}
+                  onChange={handleChange('tab0', 'guests')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <PeopleIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.guests.map((g, i) => (
+                    <MenuItem key={i} value={g}>
+                      {g}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            </>
+          )}
+
+          {tab === 1 && (
+            <>
+              <Grid size={{ xs: 12, sm: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Destination'
+                  select
+                  defaultValue={data.tripDestinations[0]}
+                  value={formValues.tab1.destination}
+                  onChange={handleChange('tab1', 'destination')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((dest, i) => (
+                    <MenuItem key={i} value={dest}>
+                      {dest}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <TextField
+                  fullWidth
+                  label='Departure Date'
+                  type='date'
+                  value={formValues.tab1.departure}
+                  onChange={handleChange('tab1', 'departure')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <TextField
+                  fullWidth
+                  label='Return Date'
+                  type='date'
+                  value={formValues.tab1.return}
+                  onChange={handleChange('tab1', 'return')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <TextField
+                  fullWidth
+                  label='Travelers'
+                  select
+                  defaultValue={data.travelers[0]}
+                  value={formValues.tab1.travelers}
+                  onChange={handleChange('tab1', 'travelers')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <PeopleIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.travelers.map((t, i) => (
+                    <MenuItem key={i} value={t}>
+                      {t}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 3 }}>
+                <TextField
+                  fullWidth
+                  label='Trip Type'
+                  select
+                  defaultValue={data.tripTypes[0]}
+                  value={formValues.tab1.tripType}
+                  onChange={handleChange('tab1', 'tripType')}
+                >
+                  {data.tripTypes.map((t, i) => (
+                    <MenuItem key={i} value={t}>
+                      {t}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            </>
+          )}
+
+          {tab === 2 && (
+            <>
+              <Grid size={{ xs: 12, sm:4 }}>
+                <TextField
+                  fullWidth
+                  label='Pickup Location'
+                  select
+                  defaultValue={data.tripDestinations[0]}
+                  value={formValues.tab2.pickup}
+                  onChange={handleChange('tab2', 'pickup')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((loc, i) => (
+                    <MenuItem key={i} value={loc}>
+                      {loc}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm:4 }}>
+                <TextField
+                  fullWidth
+                  label='Drop Location'
+                  select
+                  defaultValue={data.tripDestinations[1]}
+                  value={formValues.tab2.drop}
+                  onChange={handleChange('tab2', 'drop')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((loc, i) => (
+                    <MenuItem key={i} value={loc}>
+                      {loc}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm:3 }}>
+                <TextField
+                  fullWidth
+                  label='Trip Date'
+                  type='date'
+                  value={formValues.tab2.date}
+                  onChange={handleChange('tab2', 'date')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm:3 }}>
+                <TextField
+                  fullWidth
+                  label='Passengers'
+                  select
+                  value={formValues.tab2.passengers}
+                  onChange={handleChange('tab2', 'passengers')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <PeopleIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.passengers.map((p, i) => (
+                    <MenuItem key={i} value={p}>
+                      {p}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            </>
+          )}
+
+          {tab === 3 && (
+            <>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Flight From'
+                  select
+                  value={formValues.tab3.flightFrom}
+                  onChange={handleChange('tab3', 'flightFrom')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((loc, i) => (
+                    <MenuItem key={i} value={loc}>
+                      {loc}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Flight To'
+                  select
+                  value={formValues.tab3.flightTo}
+                  onChange={handleChange('tab3', 'flightTo')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((loc, i) => (
+                    <MenuItem key={i} value={loc}>
+                      {loc}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Departure Date'
+                  type='date'
+                  value={formValues.tab3.departureDate}
+                  onChange={handleChange('tab3', 'departureDate')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Hotel Destination'
+                  select
+                  value={formValues.tab3.hotelDestination}
+                  onChange={handleChange('tab3', 'hotelDestination')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((dest, i) => (
+                    <MenuItem key={i} value={dest}>
+                      {dest}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Check-In'
+                  type='date'
+                  value={formValues.tab3.hotelCheckIn}
+                  onChange={handleChange('tab3', 'hotelCheckIn')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Check-Out'
+                  type='date'
+                  value={formValues.tab3.hotelCheckOut}
+                  onChange={handleChange('tab3', 'hotelCheckOut')}
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <TextField
+                  fullWidth
+                  label='Travelers'
+                  select
+                  value={formValues.tab3.travelers}
+                  onChange={handleChange('tab3', 'travelers')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <PeopleIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.travelers.map((trav, i) => (
+                    <MenuItem key={i} value={trav}>
+                      {trav}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            </>
+          )}
+
+          {tab === 4 && (
+            <>
+              <Grid size={{ xs: 12, sm:3 }}>
+                <TextField
+                  fullWidth
+                  label='Destination'
+                  select
+                  value={formValues.tab4.destination}
+                  onChange={handleChange('tab4', 'destination')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <LocationOnIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.tripDestinations.map((dest, i) => (
+                    <MenuItem key={i} value={dest}>
+                      {dest}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm:3 }}>
+                <TextField
+                  fullWidth
+                  label='Trip Type'
+                  select
+                  value={formValues.tab4.tripType}
+                  onChange={handleChange('tab4', 'tripType')}
+                >
+                  {data.tripTypes.map((type, i) => (
+                    <MenuItem key={i} value={type}>
+                      {type}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid size={{ xs: 12, sm:3 }}>
+                <TextField
+                  fullWidth
+                  label='Group Size'
+                  select
+                  value={formValues.tab4.groupSize}
+                  onChange={handleChange('tab4', 'groupSize')}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <PeopleIcon />
+                      </InputAdornment>
+                    )
+                  }}
+                >
+                  {data.travelers.map((trav, i) => (
+                    <MenuItem key={i} value={trav}>
+                      {trav}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+            </>
+          )}
+
+          <Grid size={{ xs: 12, sm:3 }}>
+            <Button
+              onClick={handleSubmit}
+              fullWidth
+              variant='contained'
+              size='large'
+              sx={{
+                height: '100%',
+                backgroundColor: '#5b2e91',
+                borderRadius: 2,
+                '&:hover': { backgroundColor: '#4a2574' }
+              }}
+              startIcon={<SearchIcon />}
+            >
+              Submit
+            </Button>
           </Grid>
-        )}
-
-        {tab === 1 && (
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Destination'
-                defaultValue='Bali, Indonesia'
-                select
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='Bali, Indonesia'>Bali, Indonesia</MenuItem>
-                <MenuItem value='Paris, France'>Paris, France</MenuItem>
-                <MenuItem value='Tokyo, Japan'>Tokyo, Japan</MenuItem>
-                <MenuItem value='New York, USA'>New York, USA</MenuItem>
-                <MenuItem value='Dubai, UAE'>Dubai, UAE</MenuItem>
-                <MenuItem value='Cape Town, South Africa'>
-                  Cape Town, South Africa
-                </MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Departure'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Return'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={2}>
-              <TextField
-                fullWidth
-                label='Travelers'
-                defaultValue='2 adults'
-                select
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <PeopleIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='1 adult'>1 adult</MenuItem>
-                <MenuItem value='2 adults'>2 adults</MenuItem>
-                <MenuItem value='3 adults'>3 adults</MenuItem>
-                <MenuItem value='Family'>Family</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Trip Type'
-                defaultValue='Adventure'
-                select
-              >
-                <MenuItem value='Adventure'>Adventure</MenuItem>
-                <MenuItem value='Honeymoon'>Honeymoon</MenuItem>
-                <MenuItem value='Family'>Family</MenuItem>
-                <MenuItem value='Solo'>Solo</MenuItem>
-                <MenuItem value='Luxury'>Luxury</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6} md={1}>
-              <Button
-                fullWidth
-                variant='contained'
-                size='large'
-                sx={{
-                  height: '100%',
-                  backgroundColor: '#5b2e91',
-                  borderRadius: 2,
-                  '&:hover': { backgroundColor: '#4a2574' }
-                }}
-                startIcon={<SearchIcon />}
-              >
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        )}
-
-        {tab === 2 && (
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Pickup Location'
-                placeholder='e.g. Delhi Airport'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Drop Location'
-                placeholder='e.g. Connaught Place'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Pickup Date'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Pickup Time'
-                type='time'
-                defaultValue='00:00'
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} md={2}>
-              <TextField
-                fullWidth
-                label='Passengers'
-                defaultValue='1'
-                select
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <PeopleIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='1'>1</MenuItem>
-                <MenuItem value='2'>2</MenuItem>
-                <MenuItem value='3'>3</MenuItem>
-                <MenuItem value='4'>4</MenuItem>
-                <MenuItem value='5+'>5+</MenuItem>
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6} md={2}>
-              <Button
-                variant='contained'
-                fullWidth
-                size='large'
-                sx={{
-                  height: '100%',
-                  backgroundColor: '#5b2e91',
-                  borderRadius: 2,
-                  '&:hover': { backgroundColor: '#4a2574' }
-                }}
-                startIcon={<SearchIcon />}
-              >
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        )}
-
-        {tab === 3 && (
-          <Grid container spacing={2}>
-            {/* From (Flight Departure) */}
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='From'
-                placeholder='New York, USA'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* To (Flight Destination) */}
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='To'
-                placeholder='Paris, France'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Departure Date (Flight) */}
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Departure'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <CalendarTodayIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Destination (Hotel Location) */}
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Hotel Destination'
-                placeholder='Paris Downtown'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Check-In Date (Hotel) */}
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Check-In'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <CalendarTodayIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Check-Out Date (Hotel) */}
-            <Grid item xs={6} sm={3} md={2}>
-              <TextField
-                fullWidth
-                label='Check-Out'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <CalendarTodayIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Travelers */}
-            <Grid item xs={12} sm={6} md={2}>
-              <TextField
-                fullWidth
-                label='Travelers'
-                defaultValue='2 Adults'
-                select
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <PeopleIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='1 Adult'>1 Adult</MenuItem>
-                <MenuItem value='2 Adults'>2 Adults</MenuItem>
-                <MenuItem value='3 Adults'>3 Adults</MenuItem>
-                <MenuItem value='Family'>Family</MenuItem>
-              </TextField>
-            </Grid>
-
-            {/* Hotel Class */}
-            <Grid item xs={12} sm={6} md={2}>
-              <TextField
-                fullWidth
-                label='Hotel Class'
-                defaultValue='3 Star'
-                select
-              >
-                <MenuItem value='3 Star'>3 Star</MenuItem>
-                <MenuItem value='4 Star'>4 Star</MenuItem>
-                <MenuItem value='5 Star'>5 Star</MenuItem>
-                <MenuItem value='Luxury'>Luxury</MenuItem>
-              </TextField>
-            </Grid>
-
-            {/* Search Button */}
-            <Grid item xs={12} sm={6} md={2}>
-              <Button
-                variant='contained'
-                fullWidth
-                size='large'
-                sx={{
-                  height: '100%',
-                  borderRadius: 2,
-                  backgroundColor: '#5b2e91',
-                  '&:hover': {
-                    backgroundColor: '#4a2574'
-                  }
-                }}
-                startIcon={<SearchIcon />}
-              >
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        )}
-
-        {tab === 4 && (
-          <Grid container spacing={2}>
-            {/* Destination */}
-            <Grid item xs={12} sm={6} md={4}>
-              <TextField
-                fullWidth
-                label='Destination'
-                placeholder='New York, USA'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <LocationOnIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Start Date */}
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Start Date'
-                type='date'
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <CalendarTodayIcon />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </Grid>
-
-            {/* Group Size */}
-            <Grid item xs={12} sm={6} md={3}>
-              <TextField
-                fullWidth
-                label='Group Size'
-                select
-                defaultValue='2-5 People'
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <PeopleIcon />
-                    </InputAdornment>
-                  )
-                }}
-              >
-                <MenuItem value='1 Person'>1 Person</MenuItem>
-                <MenuItem value='2-5 People'>2-5 People</MenuItem>
-                <MenuItem value='6-10 People'>6-10 People</MenuItem>
-                <MenuItem value='More than 10'>More than 10</MenuItem>
-              </TextField>
-            </Grid>
-
-            {/* Search Button */}
-            <Grid item xs={12} sm={6} md={2}>
-              <Button
-                fullWidth
-                variant='contained'
-                size='large'
-                sx={{
-                  height: '100%',
-                  borderRadius: 2,
-                  backgroundColor: '#5b2e91',
-                  '&:hover': {
-                    backgroundColor: '#4a2574'
-                  }
-                }}
-                startIcon={<SearchIcon />}
-              >
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        )}
+        </Grid>
       </Paper>
     </Container>
   )

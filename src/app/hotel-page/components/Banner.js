@@ -1,7 +1,7 @@
 'use client'
  
 import {  Box,Container } from '@mui/material' 
-import { SearchBar } from './Search-Section'
+import { SearchBar } from './Search-Section' 
  
 
 export const ResponsiveBannerSearch = () => {
@@ -25,7 +25,7 @@ export const ResponsiveBannerSearch = () => {
           color: '#fff'
         }}
       ></Box>      
-      <SearchBar/>
+      <SearchBar/> 
     </Container>
   )
 }
