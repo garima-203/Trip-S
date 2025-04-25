@@ -1,6 +1,5 @@
 import { ResponsiveBannerSearch } from './components/Banner'
-import PromoCard from './components/Promo-Carousel'
-import CarRentalsPage from './components/SampleCard'
+import PromoCard from './components/Promo-Carousel' 
 
 export default function Home () {
   const images = [
@@ -13,8 +12,7 @@ export default function Home () {
   return (
     <div>
       <ResponsiveBannerSearch />
-      <PromoCard images={images} />
-      <CarRentalsPage/>
+      <PromoCard images={images} /> 
     </div>
   )
 }
