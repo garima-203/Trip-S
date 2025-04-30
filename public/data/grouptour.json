@@ -1,0 +1,304 @@
+{
+    "All": [
+      {
+        "title": "Taj Mahal Sunrise Tour",
+        "location": "Agra, India",
+        "price": "$48.25",
+        "rating": "4.96",
+        "reviews": "572",
+        "image": "https://www.rajasthanbhumitours.com/blog/wp-content/uploads/2024/08/Sunrise-At-Taj-Mahal-Agra.jpg"
+      },
+      {
+        "title": "Kerala Backwaters Tour",
+        "location": "Kerala, India",
+        "price": "$48.25",
+        "rating": "4.96",
+        "reviews": "572",
+        "image": "https://lp-cms-production.imgix.net/2024-08/shutterstock2044878389.jpg"
+      },
+      {
+        "title": "Goa Beach Getaway",
+        "location": "Goa, India",
+        "price": "$48.25",
+        "rating": "4.96",
+        "reviews": "572",
+        "image": "https://www.holidest.com/images/indiatours/goa/romantic-Goa-4.JPG"
+      },
+      {
+        "title": "Golden Temple Visit",
+        "location": "Amritsar, India",
+        "price": "$48.25",
+        "rating": "4.96",
+        "reviews": "572",
+        "image": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/12/56/fd/28.jpg"
+      },
+      {
+        "title": "Jaipur City Tour",
+        "location": "Jaipur, India",
+        "price": "$35.00",
+        "rating": "4.88",
+        "reviews": "420",
+        "image": "https://rajputanacabs.b-cdn.net/wp-content/uploads/2019/06/Hawa-Mahal-Jaipur-RJ.jpg"
+      },
+      {
+        "title": "Rishikesh Yoga Retreat",
+        "location": "Rishikesh, India",
+        "price": "$50.00",
+        "rating": "4.85",
+        "reviews": "360",
+        "image": "https://campinginrishikesh.in/wp-content/uploads/2017/02/200-hours-hatha-yoga-teacher-trainin-india.jpg"
+      }
+    ],
+    "Luxury": [
+      {
+        "title": "Udaipur Royal Palace Tour",
+        "location": "Udaipur, India",
+        "price": "$40.00",
+        "rating": "4.75",
+        "reviews": "310",
+        "image": "https://assets.architecturaldigest.in/photos/6008387688d5cb634511e5a5/16:9/w_2560%2Cc_limit/Shiv-Niwas-Palace-Udaipur-1366x768.jpg"
+      },
+      {
+        "title": "Leh Ladakh Adventure Tour",
+        "location": "Leh, India",
+        "price": "$40.00",
+        "rating": "4.75",
+        "reviews": "310",
+        "image": "https://asi.nic.in/images/agrafort1.jpg"
+      },
+      {
+        "title": "Taj Mahal & Agra Fort Luxury Tour",
+        "location": "Agra, India",
+        "price": "$40.00",
+        "rating": "4.75",
+        "reviews": "310",
+        "image": "https://asi.nic.in/images/agrafort1.jpg"
+      },
+      {
+        "title": "Palace on Wheels Luxury Train Ride",
+        "location": "Rajasthan, India",
+        "price": "$40.00",
+        "rating": "4.75",
+        "reviews": "310",
+        "image": "https://www.palacesonwheels.com/wp-content/uploads/2024/05/palacesonwheel-header.webp"
+      },
+      {
+        "title": "Oberoi Vanyavilas Safari Experience",
+        "location": "Ranthambore, India",
+        "price": "$40.00",
+        "rating": "4.75",
+        "reviews": "310",
+        "image": "https://www.palacesonwheels.com/wp-content/uploads/2024/05/palacesonwheel-header.webp"
+      },
+      {
+        "title": "Andaman Islands Luxury Tour",
+        "location": "Andaman, India",
+        "price": "$40.00",
+        "rating": "4.75",
+        "reviews": "310",
+        "image": "https://www.palacesonwheels.com/wp-content/uploads/2024/05/palacesonwheel-header.webp"
+      }
+    ],
+    "Standard": [
+      {
+        "title": "Tirupati Temple Visit",
+        "location": "Tirupati, India",
+        "price": "$35.00",
+        "rating": "4.88",
+        "reviews": "420",
+        "image": "https://www.ttdconline.com/_next/thirupathi-9.jpg"
+      },
+      {
+        "title": "Rajasthan Desert Safari",
+        "location": "Jaisalmer, India",
+        "price": "$35.00",
+        "rating": "4.88",
+        "reviews": "420",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Mysore Palace & Brindavan Gardens Tour",
+        "location": "Mysore, India",
+        "price": "$35.00",
+        "rating": "4.88",
+        "reviews": "420",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Varanasi Ganga Aarti Experience",
+        "location": "Varanasi, India",
+        "price": "$35.00",
+        "rating": "4.88",
+        "reviews": "420",
+        "image": "https://cdn.getyourguide.com/image/format=auto,fit=crop,gravity=auto,quality=60,width=450,height=450,dpr=2/tour_img/5d72502a31b1a.jpeg"
+      },
+      {
+        "title": "Sikkim Adventure Trek",
+        "location": "Sikkim, India",
+        "price": "$35.00",
+        "rating": "4.88",
+        "reviews": "420",
+        "image": "https://www.gosikkim.in/wp-content/uploads/2023/05/DZONGRI-GOECHALA-TREK.jpg"
+      },
+      {
+        "title": "Madhya Pradesh Wildlife Safari",
+        "location": "Madhya Pradesh, India",
+        "price": "$40.00",
+        "rating": "4.80",
+        "reviews": "300",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      }
+    ],
+    "Villa": [
+      {
+        "title": "Goa Beachside Villa Retreat",
+        "location": "Goa, India",
+        "price": "$120.00",
+        "rating": "4.99",
+        "reviews": "890",
+        "image": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202107161117437419-e3fafef2e4a811eba1070242ac110004.jpg"
+      },
+      {
+        "title": "Udaipur Lakeview Villa",
+        "location": "Udaipur, India",
+        "price": "$150.00",
+        "rating": "4.90",
+        "reviews": "400",
+        "image": "https://thumbs.dreamstime.com/b/udaipur-lake-mountains-landscape-green-parrots-foreground-sunset-dusk-sky-buildings-can-be-seen-beyond-then-340699926.jpg"
+      },
+      {
+        "title": "Andaman Island Luxury Villa",
+        "location": "Andaman, India",
+        "price": "$180.00",
+        "rating": "4.95",
+        "reviews": "300",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/1-89-750x375_20191216182335.jpg"
+      },
+      {
+        "title": "Kerala Backwaters Villa",
+        "location": "Kerala, India",
+        "price": "$160.00",
+        "rating": "4.85",
+        "reviews": "250",
+        "image": "https://www.holidaymonk.com/wp-content/uploads/2016/09/1014_Backwater-Villa-23.jpg"
+      },
+      {
+        "title": "Alleppey Houseboat Villa",
+        "location": "Alleppey, India",
+        "price": "$140.00",
+        "rating": "4.80",
+        "reviews": "320",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Shimla Hilltop Villa",
+        "location": "Shimla, India",
+        "price": "$130.00",
+        "rating": "4.92",
+        "reviews": "370",
+        "image": "https://imgservice.fvrentals.com/375x250/stayvista-at-hilltop-farmst-in-shimla-bc-7989297-0.jpg"
+      }
+    ],
+    "Cottages": [
+      {
+        "title": "Himalayan Cottage Retreat",
+        "location": "Himachal Pradesh, India",
+        "price": "$75.00",
+        "rating": "4.92",
+        "reviews": "610",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Coastal Cottage Stay",
+        "location": "Goa, India",
+        "price": "$85.00",
+        "rating": "4.88",
+        "reviews": "560",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Mountain View Cottage",
+        "location": "Manali, India",
+        "price": "$90.00",
+        "rating": "4.95",
+        "reviews": "670",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Desert Cottage Stay",
+        "location": "Rajasthan, India",
+        "price": "$100.00",
+        "rating": "4.80",
+        "reviews": "450",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Kashmir Valley Cottage",
+        "location": "Kashmir, India",
+        "price": "$110.00",
+        "rating": "4.98",
+        "reviews": "300",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Nainital Lakeview Cottage",
+        "location": "Nainital, India",
+        "price": "$95.00",
+        "rating": "4.85",
+        "reviews": "520",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      }
+    ],
+   "Shared": [
+      {
+        "title": "Goa Beachside Villa Retreat",
+        "location": "Goa, India",
+        "price": "$120.00",
+        "rating": "4.99",
+        "reviews": "890",
+        "image": "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202107161117437419-e3fafef2e4a811eba1070242ac110004.jpg"
+      },
+      {
+        "title": "Udaipur Lakeview Villa",
+        "location": "Udaipur, India",
+        "price": "$150.00",
+        "rating": "4.90",
+        "reviews": "400",
+        "image": "https://thumbs.dreamstime.com/b/udaipur-lake-mountains-landscape-green-parrots-foreground-sunset-dusk-sky-buildings-can-be-seen-beyond-then-340699926.jpg"
+      },
+      {
+        "title": "Andaman Island Luxury Villa",
+        "location": "Andaman, India",
+        "price": "$180.00",
+        "rating": "4.95",
+        "reviews": "300",
+        "image": "https://www.holidify.com/images/cmsuploads/compressed/1-89-750x375_20191216182335.jpg"
+      },
+      {
+        "title": "Kerala Backwaters Villa",
+        "location": "Kerala, India",
+        "price": "$160.00",
+        "rating": "4.85",
+        "reviews": "250",
+        "image": "https://www.holidaymonk.com/wp-content/uploads/2016/09/1014_Backwater-Villa-23.jpg"
+      },
+      {
+        "title": "Alleppey Houseboat Villa",
+        "location": "Alleppey, India",
+        "price": "$140.00",
+        "rating": "4.80",
+        "reviews": "320",
+        "image": "https://static.toiimg.com/thumb/msid-82757648,width-748,height-499,resizemode=4,imgsize-1503159/No-place-like-Daksum.jpg"
+      },
+      {
+        "title": "Shimla Hilltop Villa",
+        "location": "Shimla, India",
+        "price": "$130.00",
+        "rating": "4.92",
+        "reviews": "370",
+        "image": "https://imgservice.fvrentals.com/375x250/stayvista-at-hilltop-farmst-in-shimla-bc-7989297-0.jpg"
+      }
+    ]
+  
+  }
+  

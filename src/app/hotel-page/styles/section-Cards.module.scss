@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Montserrat+Alternates&display=swap');
+
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+
+  .card {
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 5%;
+  }
+
+  .cardContent {
+    border-radius: 32px 32px 24px 24px;
+    margin-top: -32px;
+    position: relative;
+    background-color: white; 
+    .title {
+      color: #4a336b;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      font-size: 1.25rem;
+      margin-top: 10px; 
+      font-family: "Montserrat", sans-serif;
+    }
+  }
+  .ratingBadge {
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 50px;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 1;
+
+    .starIcon {
+      color: #FFB800;
+      width: 16px;
+      height: 16px;
+    }
+    .ratingText {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .reviewsText {
+        font-size: 0.875rem;
+        color: rgba(0, 0, 0, 0.6);
+        margin-left: 0.5rem;
+      }
+    }
+  }
+  .favoriteButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+  }
+ 
+  .locationWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+
+    .locationIcon {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 18px;
+    }
+
+    .locationText {
+      font-size: 0.9rem;
+    }
+  }
+
+  .bottomWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    .price {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #000;
+    }
+
+    .priceFaded {
+      color: rgba(0, 0, 0, 0.6);
+      font-size: 0.875rem;
+      margin-left: 0.5rem;
+    }
+  }
+
+  .bookNowBtn {
+    background-color: #3E206D;
+    color: white;
+    border-radius: 40px;
+    padding: 0.5rem 1.25rem;
+    text-transform: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: none;
+
+    &:hover {
+      background-color: #512b8a;
+      box-shadow: none;
+    }
+  }
+}

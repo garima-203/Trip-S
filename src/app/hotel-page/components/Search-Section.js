@@ -15,17 +15,15 @@ import {
 } from '@mui/material'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
 import PeopleIcon from '@mui/icons-material/People'
-import SearchIcon from '@mui/icons-material/Search'
-
 export const SearchBar = () => {
   const [tab, setTab] = useState(0)
   const [data, setData] = useState(null)
-  const [formValues, setFormValues] = useState('')
+  const [formValues, setFormValues] = useState({})
 
   useEffect(() => {
-    import('../data/menuitem.json')
-      .then(module => {
-        const menuData = module.default
+    fetch('/data/menuitem.json')
+      .then(response => response.json())
+      .then(menuData => {
         setData(menuData)
         setFormValues(prev => ({
           ...prev,
@@ -97,8 +95,7 @@ export const SearchBar = () => {
         position: 'relative',
         mt: -9,
         zIndex: 3,
-        padding: 4,
-        width: { xs: '95%', sm: 'auto' },
+        padding: 4, 
         overflow: 'hidden'
       }}
     >
@@ -124,9 +121,18 @@ export const SearchBar = () => {
           value={tab}
           onChange={handleTabChange}
           variant='scrollable'
-          scrollButtons='auto'
+          scrollButtons
+          allowScrollButtonsMobile
           textColor='secondary'
           TabIndicatorProps={{ style: { display: 'none' } }}
+          sx={{
+            '& .MuiTabs-scrollButtons': {
+              color: 'white'
+            },
+            '& .MuiTabs-scrollButtons.Mui-disabled': {
+              opacity: 0.3
+            }
+          }}
         >
           {data.tabs.map((label, index) => (
             <Tab
@@ -136,7 +142,7 @@ export const SearchBar = () => {
                 color: 'white',
                 textTransform: 'none',
                 fontWeight: 500,
-                mx: 2,
+                mx: 0.5,
                 '&:hover': {
                   backgroundColor: 'white',
                   color: '#5b2e91',
@@ -161,10 +167,11 @@ export const SearchBar = () => {
           top: -100,
           zIndex: 0,
           mt: 9,
-          p: { xs: 2, sm: 2 },
+          p: { xs: 2, sm: 3 },
           borderRadius: 4,
           backgroundColor: '#f8f9fa',
-          width: '85%',
+          width: {  sm: 'auto' },
+          maxWidth: 'max-content',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -337,7 +344,7 @@ export const SearchBar = () => {
 
           {tab === 2 && (
             <>
-              <Grid size={{ xs: 12, sm:4 }}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   fullWidth
                   label='Pickup Location'
@@ -360,7 +367,7 @@ export const SearchBar = () => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid size={{ xs: 12, sm:4 }}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   fullWidth
                   label='Drop Location'
@@ -383,7 +390,7 @@ export const SearchBar = () => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid size={{ xs: 12, sm:3 }}>
+              <Grid size={{ xs: 12, sm: 3 }}>
                 <TextField
                   fullWidth
                   label='Trip Date'
@@ -393,7 +400,7 @@ export const SearchBar = () => {
                   InputLabelProps={{ shrink: true }}
                 />
               </Grid>
-              <Grid size={{ xs: 12, sm:3 }}>
+              <Grid size={{ xs: 12, sm: 3 }}>
                 <TextField
                   fullWidth
                   label='Passengers'
@@ -543,7 +550,7 @@ export const SearchBar = () => {
 
           {tab === 4 && (
             <>
-              <Grid size={{ xs: 12, sm:3 }}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   fullWidth
                   label='Destination'
@@ -565,7 +572,7 @@ export const SearchBar = () => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid size={{ xs: 12, sm:3 }}>
+              <Grid size={{ xs: 12, sm: 3 }}>
                 <TextField
                   fullWidth
                   label='Trip Type'
@@ -580,7 +587,7 @@ export const SearchBar = () => {
                   ))}
                 </TextField>
               </Grid>
-              <Grid size={{ xs: 12, sm:3 }}>
+              <Grid size={{ xs: 12, sm: 4 }}>
                 <TextField
                   fullWidth
                   label='Group Size'
@@ -605,7 +612,7 @@ export const SearchBar = () => {
             </>
           )}
 
-          <Grid size={{ xs: 12, sm:3 }}>
+          <Grid size={{ xs: 12, sm: 3 }}>
             <Button
               onClick={handleSubmit}
               fullWidth
@@ -617,7 +624,6 @@ export const SearchBar = () => {
                 borderRadius: 2,
                 '&:hover': { backgroundColor: '#4a2574' }
               }}
-              startIcon={<SearchIcon />}
             >
               Submit
             </Button>
