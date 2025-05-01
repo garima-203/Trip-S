@@ -1,15 +1,13 @@
-import NavLayout from "./layout/navLayout";
- 
-export default function RootLayout({ children }) {
-    return (
-      <> 
-        <head>
-          <title>Hotel Page</title>
-        </head>
-        <NavLayout>
-        {children}
-        </NavLayout>
-      </>
-    );
-  }
-  
+import NavLayout from './layout/navLayout'
+export const metadata = {
+  title: "Hotel Page",
+  description: "Desciption",
+};
+export default function RootLayout ({ children }) {
+  return (
+    <>  
+          <NavLayout>{children}</NavLayout>
+       
+    </>
+  )
+}

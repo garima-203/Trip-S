@@ -1,4 +1,4 @@
-
+ 
 import { HomeBanner } from "../components/HomeBanner"
 import PromoCard from "../components/Promo-Carousel"
 import SectionTab from "../components/SectionTab"
@@ -36,7 +36,7 @@ export default function HomePage () {
               'Honeymoon'
             ]}
             jsonPath='../data/featureCard.json'
-          /> 
+          />  
     </div>
   )
 }

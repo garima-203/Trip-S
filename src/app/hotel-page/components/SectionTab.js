@@ -1,49 +1,67 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Box, Tabs, Tab, Container, IconButton, Typography } from '@mui/material'
-import Slider from 'react-slick' 
+import {
+  Box,
+  Tabs,
+  Tab,
+  Container,
+  IconButton,
+  Typography
+} from '@mui/material'
+import Slider from 'react-slick'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import styles from '../styles/section-Tab.module.scss'
 import SectionCard from './SectionCards'
 
-export default function SectionTab({ tabs, jsonPath, sectionTitle, sectiondetails }) {
+export default function SectionTab ({
+  tabs,
+  jsonPath,
+  sectionTitle,
+  sectiondetails
+}) {
   const [value, setValue] = useState(0)
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetch(jsonPath)
-      .then((res) => {
+      .then(res => {
         if (!res.ok) throw new Error('Network response was not ok')
         return res.json()
       })
-      .then((json) => {
+      .then(json => {
         setData(json)
         setLoading(false)
       })
-      .catch((error) => console.error('Failed to load data:', error))
+      .catch(error => console.error('Failed to load data:', error))
   }, [jsonPath])
 
-  const handleChange = (event, newValue) => setValue(newValue) 
+  const handleChange = (event, newValue) => setValue(newValue)
   const currentTab = tabs && tabs.length > 0 ? tabs[value] : null
   let places = []
- 
+
   if (currentTab) {
     places = data[currentTab] || data['All'] || []
-  } else { 
+  } else {
     const firstKey = Object.keys(data)[0]
     places = data[firstKey] || []
   }
 
   const CustomPrevArrow = ({ onClick }) => (
-    <IconButton onClick={onClick} className={`${styles.arrowButton} ${styles.prevArrow}`}>
+    <IconButton
+      onClick={onClick}
+      className={`${styles.arrowButton} ${styles.prevArrow}`}
+    >
       <ArrowBackIosNewIcon />
     </IconButton>
   )
 
   const CustomNextArrow = ({ onClick }) => (
-    <IconButton onClick={onClick} className={`${styles.arrowButton} ${styles.nextArrow}`}>
+    <IconButton
+      onClick={onClick}
+      className={`${styles.arrowButton} ${styles.nextArrow}`}
+    >
       <ArrowForwardIosIcon />
     </IconButton>
   )
@@ -55,41 +73,68 @@ export default function SectionTab({ tabs, jsonPath, sectionTitle, sectiondetail
     speed: 300,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 900, settings: { slidesToShow: 2 } },
-      { breakpoint: 600, settings: { slidesToShow: 1.1 } }
+      {
+        breakpoint: 1600,
+        settings: { slidesToShow: 3.5 }
+      },
+      {
+        breakpoint: 1280,
+        settings: { slidesToShow: 3 }
+      },
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 2.5 }
+      },
+      {
+        breakpoint: 900,
+        settings: { slidesToShow: 2 }
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 1.5 }
+      },
+      {
+        breakpoint: 640,
+        settings: { slidesToShow: 1.2 }
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1 }
+      }
     ]
   }
 
   return (
     <Container className={styles.containerSpacing}>
       {sectionTitle && (
-        <Typography variant="h5" className={styles.sectionTitle}>
+        <Typography variant='h5' className={styles.sectionTitle}>
           {sectionTitle}
         </Typography>
       )}
-      {sectiondetails && (
-        <Typography variant="p">{sectiondetails}</Typography>
-      )}
- 
+      {sectiondetails && <Typography variant='p'>{sectiondetails}</Typography>}
+
       {tabs && tabs.length > 1 && (
         <Tabs
           value={value}
           onChange={handleChange}
-          variant="scrollable"
+          variant='scrollable'
           scrollButtons
           allowScrollButtonsMobile
           TabIndicatorProps={{ style: { display: 'none' } }}
           className={styles.customTabs}
         >
           {tabs.map((tab, i) => (
-            <Tab key={i} label={tab} classes={{
-              root: styles.customTab,
-              selected: styles.selectedTab,
-            }} />
+            <Tab
+              key={i}
+              label={tab}
+              classes={{
+                root: styles.customTab,
+                selected: styles.selectedTab
+              }}
+            />
           ))}
         </Tabs>
       )}
@@ -106,4 +151,3 @@ export default function SectionTab({ tabs, jsonPath, sectionTitle, sectiondetail
     </Container>
   )
 }
-
