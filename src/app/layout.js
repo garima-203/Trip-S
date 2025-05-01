@@ -1,11 +1,11 @@
 export const metadata = {
-  title: "Hotel page", 
-};
+  title: 'Hotel page'
+}
 
-export default function RootLayout({ children }) {
+export default function RootLayout ({ children }) {
   return (
-    <html lang="en">
+    <html lang='en'> 
       <body>{children}</body>
     </html>
-  );
+  )
 }

@@ -31,7 +31,7 @@ const CustomNextArrow = ({ onClick }) => (
     onClick={onClick}
     sx={{
       position: 'absolute',
-      right: 10,
+      right: 15,
       top: '50%',
       transform: 'translateY(-50%)',
       zIndex: 2,

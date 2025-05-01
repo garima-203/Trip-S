@@ -94,7 +94,7 @@ export default function SectionTab ({
       },
       {
         breakpoint: 768,
-        settings: { slidesToShow: 1.5 }
+        settings: { slidesToShow: 1.2 }
       },
       {
         breakpoint: 640,
@@ -108,7 +108,7 @@ export default function SectionTab ({
   }
 
   return (
-    <Container className={styles.containerSpacing}>
+    <Box className={styles.containerSpacing}>
       {sectionTitle && (
         <Typography variant='h5' className={styles.sectionTitle}>
           {sectionTitle}
@@ -148,6 +148,6 @@ export default function SectionTab ({
           ))}
         </Slider>
       </Box>
-    </Container>
+    </Box>
   )
 }

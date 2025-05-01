@@ -1,4 +1,4 @@
-import NavLayout from './layout/navLayout'
+import NavLayout from './layout/navLayout' 
 export const metadata = {
   title: "Hotel Page",
   description: "Desciption",
